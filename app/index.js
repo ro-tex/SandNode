@@ -1,3 +1,5 @@
+'use strict';
+
 const sand = require('./sand') // import a module
 
 console.log(sand.hello()) // call a module's method
@@ -12,7 +14,7 @@ var hash = _.assign({
 
 console.log(hash);
 
-x = 100 // a global
+var x = 100 // a global
 
 function test() {
     x = 5 // modify the global
@@ -36,13 +38,13 @@ console.log(x > 0 ? 'x is ' + x : 0); // yey for shorthand if!
 
 console.log(typeof "123");
 
-o = {
+var o = {
     a: 1,
     b: '2',
     c: [1, 2, 3]
 }
 
-arr = [1, 1, 2] // an array (actually an object)
+var arr = [1, 1, 2] // an array (actually an object)
 arr.asdf = 100 // feels like a map to me...
 
 arr.foo = function() { // or an object?!
@@ -59,7 +61,19 @@ console.log(arr.foo);
 
 // NOTE: The above is bad style. Stick to numeric indices with arrays and use objects for anything else.
 
-x = 'aaaa'
+var x = 'aaaa' // notice how we're re-declaring the variable with var but we don't get any errors.
 if (typeof x.toUpperCase === 'function') { // check if x responds to a method
     console.log(x.toUpperCase());
 }
+
+
+function scopes() {
+    let r = 1 // available throuout the entire block (incl. subblocks)
+    {
+        var p = 2 // available in the whole body of scopes()
+        console.log(r, p);
+    }
+    console.log(r, p); // would throw an error if we define p with `let p` within that block
+}
+
+scopes()
