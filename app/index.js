@@ -19,6 +19,8 @@ var x = 100 // a global
 function test() {
     x = 5 // modify the global
 
+    console.log('args:', arguments); // all functions have this `arguments` operator that gives us an object
+
     // define a local x. this is hoisted to the top of the method,
     // so the previous statement doesn't affect the global either:
     var x = 20
@@ -77,3 +79,50 @@ function scopes() {
 }
 
 scopes()
+
+/* LAMBDAS */
+
+let l1 = (x) => { // "arrow function"?
+    return x ** 2 // use `return` if you have a block and want to get a return value
+}
+
+let l2 = (x) => x ** 5 // the `return` is implicit if you have an expression
+
+// if the expression is an object we need `()` around it so it's not treated as a block:
+let l3 = x => ({
+    foo: 'bar'
+})
+
+let l4 = x => x ** 5 // the parentheses around the param are optional if it's just one
+
+let l5 = (...args) => args[1] ** 2 // the argument can be a compund one
+
+console.log('lambda:', l5(3, 4, 5));
+
+let mod = (o, val = 'default') => { // variable number of params via default values
+    o.value = val // cause a side effect; no return value
+}
+
+let lambdaParam = {}
+console.log('mod return:', mod(lambdaParam), 'param status after execution:', lambdaParam);
+
+// Destructuring within the parameter list is also supported
+// let f = ([a, b] = [1, 2], {x: c} = {x: a + b}) => a + b + c; // commented so it doesn't get reformatted
+// f();  // -> 6
+
+
+function foo() {
+    console.log('logging `this` from foo:', this);
+}
+// passing an object to call() makes the function run as a method of
+// the supplied object (the object becomes `this` during the function execution)
+foo.call(o)
+
+/* ARRAYS */
+
+arr = [1, 1, 2, 5, 8, 13]
+
+let sumSquaredOdds = arr.filter(x => x % 2 == 1).map(x => x ** 2).reduce((x, y) => x + y)
+console.log('sumSquaredOdds:', sumSquaredOdds);
+
+/* PROMISES */
