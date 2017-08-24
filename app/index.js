@@ -126,3 +126,60 @@ let sumSquaredOdds = arr.filter(x => x % 2 == 1).map(x => x ** 2).reduce((x, y) 
 console.log('sumSquaredOdds:', sumSquaredOdds);
 
 /* PROMISES */
+
+function work(ms) {
+    let now = Date.now()
+    while (Date.now() < now + ms) {}
+    return now % 3 > 0 // semi-random output
+}
+
+function err(error) {
+    return console.error(`Error: ${error}`)
+}
+
+function asyncWork() {
+    return new Promise(
+        function(resolve, reject) { // at this point these are just placeholders for functions
+            let success = work(1000)
+            if (success) {
+                resolve('Success!') // call the success placeholder
+            } else {
+                reject('Error!') // we can throw an Error() here
+            }
+        }
+    );
+}
+
+// this is the same as above but with a single-line lambda
+function asyncWorkSimple(param) {
+    console.log('doing work...', param)
+    return new Promise((resolve, reject) => work(100) ? resolve('Succ') : reject('Err'))
+}
+
+if (false) {
+    let p = asyncWorkSimple()
+    // process the promise:
+    p.then(console.log, console.log) // pass the resolve/reject functions. they will be given the return value of the promise as a param
+    // another consequence of the same promise:
+    p.then(resolve => console.log("+++"), reject => console.log("---")) // we can pass them by name, too. but then they won't be auto-given a param
+}
+
+if (false) {
+    console.log("A promises chain:");
+    asyncWorkSimple('initial') // returns a promise
+        // .then(resolve => asyncWorkSimple('subsequent'), reject => err(reject))
+        .then(asyncWorkSimple)
+        .then(asyncWorkSimple) // if this errors out, the next `then` with a reject call is called or we hit the `catch`
+        // .then(3) // => Promise.resolve(3)
+        // .then(x => x) // => Promise.resolve(x)
+        // .then(x => new Promise((resolve, reject) => {resolve(123123)}))
+        .catch(err)
+        .then(() => console.log('another call after the catch. basically a `finally`'), err)
+}
+
+console.log('parallel processing with promises:')
+// this will run `asyncWorkSimple` on all elements of `arr` in parallel and only succeed if all calls succeed.
+// otherwise the returned promise will trigger its reject clause (or hit the `catch`).
+Promise.all(arr.map(element => asyncWorkSimple(element)))
+    .then(resolve => console.log('success!', resolve)) // all returned values are passed here as an array
+    .catch(reject => err(reject)) // only the first error is passed here
