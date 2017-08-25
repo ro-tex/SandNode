@@ -177,9 +177,37 @@ if (false) {
         .then(() => console.log('another call after the catch. basically a `finally`'), err)
 }
 
-console.log('parallel processing with promises:')
-// this will run `asyncWorkSimple` on all elements of `arr` in parallel and only succeed if all calls succeed.
-// otherwise the returned promise will trigger its reject clause (or hit the `catch`).
-Promise.all(arr.map(element => asyncWorkSimple(element)))
-    .then(resolve => console.log('success!', resolve)) // all returned values are passed here as an array
-    .catch(reject => err(reject)) // only the first error is passed here
+if (false) {
+    console.log('parallel processing with promises:')
+    // this will run `asyncWorkSimple` on all elements of `arr` in parallel and only succeed if all calls succeed.
+    // otherwise the returned promise will trigger its reject clause (or hit the `catch`).
+    Promise.all(arr.map(element => asyncWorkSimple(element)))
+        .then(resolve => console.log('success!', resolve)) // all returned values are passed here as an array
+        .catch(reject => err(reject)) // only the first error is passed here
+}
+
+function showProps(obj, objName = 'this') {
+    var result = '';
+    for (var i in obj) {
+        // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+        if (obj.hasOwnProperty(i)) {
+            result += objName + '.' + i + ' = ' + obj[i] + '\n';
+        }
+    }
+    return result;
+}
+
+let a = new Object()
+a.a = 1
+a.b = [1, 2, 3]
+a.c = 'asdfasfd'
+a.d = null
+a.e = () => {
+    console.log();
+}
+a.f = function hello() {
+    console.log(this.a);
+}
+// console.log(showProps(a));
+// console.log(a);
+// console.log(JSON.stringify(a));
