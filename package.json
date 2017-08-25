@@ -23,6 +23,7 @@
 		"lodash": "^4.17.4"
 	},
 	"devDependencies": {
+		"debug": "^3.0.1",
 		"mocha": "^3.5.0"
 	}
 }
