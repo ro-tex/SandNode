@@ -7,9 +7,9 @@ console.log(sand.hello()) // call a module's method
 const _ = require('lodash')
 
 var hash = _.assign({
-    'a': 1,
-    'b': 2,
-    'c': 3
+    a: 1,
+    b: 2, // no quotes required for the key
+    c: 3 // the trailing comma is ignored
 })
 
 console.log(hash);
@@ -43,7 +43,7 @@ console.log(typeof "123");
 var o = {
     a: 1,
     b: '2',
-    c: [1, 2, 3]
+    c: [1, 2, 3], // the trailing comma is ignored
 }
 
 var arr = [1, 1, 2] // an array (actually an object)
@@ -120,10 +120,19 @@ foo.call(o)
 
 /* ARRAYS */
 
-arr = [1, 1, 2, 5, 8, 13]
+arr = [1, 1, 2, 5, 8, 13, ] // the trailing comma is ignored
+
+console.log('ARR', arr);
 
 let sumSquaredOdds = arr.filter(x => x % 2 == 1).map(x => x ** 2).reduce((x, y) => x + y)
 console.log('sumSquaredOdds:', sumSquaredOdds);
+
+arr.push(1);
+arr.pop();
+arr.unshift(2);
+arr.shift();
+
+arr.slice(1, 3); // arr[1:3] doesn't work
 
 /* PROMISES */
 
@@ -211,3 +220,42 @@ a.f = function hello() {
 // console.log(showProps(a));
 // console.log(a);
 // console.log(JSON.stringify(a));
+
+// NOTE variable names may cover function names
+if (false) {
+    function f() {
+        return 1;
+    }
+    console.log(f()); // -> 1
+
+    f = () => 2; // overwriting the function name here
+    console.log(f()); // -> 2
+
+    // let f = () => 10; -> SyntaxError: Identifier 'f' has already been declared
+    // var f = ... will act like `f = ...` unless we have strict mode, then it will act like `let f = ...`
+
+    f = 3
+    console.log(f()); // -> TypeError: f is not a function
+}
+
+/* OBJECTS */
+
+let parent = {
+    hi: () => console.log('Hello!'),
+    toString: () => 'parent'
+}
+
+let obj = {
+    __proto__: parent, // inheritance
+
+    toString() { // equivalent to `toString: function toString() {`
+        return 'obj:' + super.toString()
+    },
+
+    data: 42,
+
+    ['prop_' + (() => Date.now())()]: 42 // a dynamicaly named field
+}
+
+obj.hi()
+console.log(obj);
