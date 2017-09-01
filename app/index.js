@@ -1,8 +1,8 @@
 'use strict';
 
-const sand = require('./sand') // import a module
+const Sand = require('./sand') // import a module
 
-console.log(sand.hello()) // call a module's method
+console.log(Sand.hello()) // call a module's method
 
 const _ = require('lodash')
 
