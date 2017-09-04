@@ -293,3 +293,5 @@ v.toString2 = function() {
 }
 
 console.log(v.toString2());
+
+console.log(Object.keys(v), Object.values(v));

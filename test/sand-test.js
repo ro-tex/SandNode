@@ -4,6 +4,8 @@ const expect = chai.expect;
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
+// const assert = require('assert'); // if we want to use the built-in Node library
+
 // NOTE https://www.sitepoint.com/promises-in-javascript-unit-tests-the-definitive-guide/
 
 describe('Sand', () => {
@@ -14,7 +16,8 @@ describe('Sand', () => {
 
   // before(() => console.log('BEFORE'));
 
-  beforeEach(() => {
+  // we can name the hooks, in case we have several and want to easily debug them
+  beforeEach(function setup() {
     // console.log('BEFORE EACH');
     result = Sand.sand();
 
@@ -22,7 +25,7 @@ describe('Sand', () => {
     // return configThatReturnsAPromise();
   });
 
-  // afterEach(() => console.log('AFTER EACH'));
+  // afterEach('another hook name', () => console.log('AFTER EACH'));
 
   // after(() => console.log('AFTER'));
 
@@ -59,5 +62,7 @@ describe('Sand', () => {
     // with promises we need to use `eventually` and return the whole thing:
     return expect(result).to.eventually.equal(5);
   });
+
+  it('a pending test (no callback)');
 
 });
