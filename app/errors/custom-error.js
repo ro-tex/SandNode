@@ -1,3 +1,5 @@
+'use strict';
+
 class CustomError extends Error {
 
   constructor(msg, causedBy) {
@@ -9,6 +11,8 @@ class CustomError extends Error {
     return this.__causedBy;
   }
 }
+
+module.exports = CustomError;
 
 // try {
 //   let a = [];
