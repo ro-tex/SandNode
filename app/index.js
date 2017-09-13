@@ -4,16 +4,6 @@ const Sand = require('./sand') // import a module
 
 console.log(Sand.hello()) // call a module's method
 
-const _ = require('lodash')
-
-var hash = _.assign({
-  a: 1,
-  b: 2, // no quotes required for the key
-  c: 3 // the trailing comma is ignored
-})
-
-console.log(hash);
-
 var x = 100 // a global
 
 function test() {
@@ -192,7 +182,15 @@ if (false) {
   // otherwise the returned promise will trigger its reject clause (or hit the `catch`).
   Promise.all(arr.map(element => asyncWorkSimple(element)))
     .then(resolve => console.log('success!', resolve)) // all returned values are passed here as an array
-    .catch(reject => err(reject)) // only the first error is passed here
+    .catch(reject => err(reject)); // only the first error is passed here
+
+  // This is super useful when we want to get a given resource and there is more than one provider.
+  // We can poll them all and return the resource as soon as the fastest provider responds.
+  // The above assumes calls are free.
+  console.log('pick the fastest responder (or failer):');
+  Promise.race(arr.map(el => asyncWorkSimple(el)))
+    .then(resolve => console.log('success', resolve)) // returns the first one that succeeds
+    .catch(reject => err(reject)); // the first error is passed here
 }
 
 function showProps(obj, objName = 'this') {
@@ -240,58 +238,68 @@ if (false) {
 
 /* OBJECTS */
 
-let parent = {
-  hi: () => console.log('Hello!'),
-  toString: () => 'parent'
-}
+if (false) {
 
-let obj = {
-  __proto__: parent, // inheritance
-
-  toString() { // equivalent to `toString: function toString() {`
-    return 'obj:' + super.toString()
-  },
-
-  data: 42,
-
-  ['prop_' + (() => Date.now())()]: 42 // a dynamicaly named field
-}
-
-obj.hi()
-console.log(obj);
-
-// All objects are `true`:
-var b = new Boolean(false);
-if (b) {} // NOTE this condition evaluates to true
-if (b == true) {} // this condition evaluates to false
-
-
-class Vector {
-
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
+  let parent = {
+    hi: () => console.log('Hello!'),
+    toString: () => 'parent'
   }
 
-  // methods are defined without the `function` keyword
-  sum() {
-    return this.x + this.y;
+  let obj = {
+    __proto__: parent, // inheritance
+
+    toString() { // equivalent to `toString: function toString() {`
+      return 'obj:' + super.toString()
+    },
+
+    data: 42,
+
+    ['prop_' + (() => Date.now())()]: 42 // a dynamicaly named field
   }
+
+  obj.hi()
+  console.log(obj);
+
+  // All objects are `true`:
+  var b = new Boolean(false);
+  if (b) {} // NOTE this condition evaluates to true
+  if (b == true) {} // this condition evaluates to false
+
+
+  class Vector {
+
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    // methods are defined without the `function` keyword
+    sum() {
+      return this.x + this.y;
+    }
+  }
+
+  // patching the class (like monkey patching in Ruby)
+  Vector.prototype.toString = function() {
+    return `X:${this.x} Y:${this.y}`
+  }
+
+  let v = new Vector(2, 3);
+  console.log(v.toString());
+
+  // true monkey patching of an object
+  v.toString2 = function() {
+    return `>X<:${this.x} >Y<:${this.y}`
+  }
+
+  console.log(v.toString2());
+
+  console.log(Object.keys(v), Object.values(v));
 }
 
-// patching the class (like monkey patching in Ruby)
-Vector.prototype.toString = function() {
-  return `X:${this.x} Y:${this.y}`
-}
 
-let v = new Vector(2, 3);
-console.log(v.toString());
+let fs = [(x) => console.log('func 1', x), (x) => console.log('func 2', x), (x) => console.log('func 3', x)]
 
-// true monkey patching of an object
-v.toString2 = function() {
-  return `>X<:${this.x} >Y<:${this.y}`
-}
-
-console.log(v.toString2());
-
-console.log(Object.keys(v), Object.values(v));
+let applyAsync = (acc, val) => acc.then(val);
+let composeAsync = (...funcs) => x => funcs.reduce(applyAsync, Promise.resolve(x));
+composeAsync(fs)('>>> some value <<<')
