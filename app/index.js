@@ -303,3 +303,36 @@ let fs = [(x) => console.log('func 1', x), (x) => console.log('func 2', x), (x) 
 let applyAsync = (acc, val) => acc.then(val);
 let composeAsync = (...funcs) => x => funcs.reduce(applyAsync, Promise.resolve(x));
 composeAsync(fs)('>>> some value <<<')
+
+
+/* Wrapping a promise return into a callback library and returning a promise again. */
+if (false) {
+  // The original func that returns a promise:
+  function fooOld() {
+    return barPromise()
+      .then((res) => {
+        resolve(res);
+      }, (err) => {
+        reject(err);
+      });
+  }
+
+  // The new func that also returns a promise
+  // but also uses a callback lib - badCallback()
+  function fooNew() {
+    return new Promise((resolve, reject) => {
+      barCallback('some param', function(data) {
+
+        doSyncWork(data);
+
+        barPromise()
+          .then((res) => {
+            // this will resolve the promise that we return from fooNew:
+            resolve(res);
+          }, (err) => {
+            reject(err);
+          });
+      })
+    });
+  }
+}
