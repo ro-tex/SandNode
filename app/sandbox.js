@@ -335,4 +335,60 @@ if (false) {
       })
     });
   }
+
+  /*
+  Here we have an object with a method that works with callbacks.
+  We don't like that, so we'll wrap that in a method that works with promises.
+  The important part is that the new method will still function as part of the object.
+  */
+  let obj = {}; // some object whose method we want to overwrite
+  obj.method = function(params, callback) {
+    // business logic...
+  }
+  obj.methodPromise = function(params) {
+    let self = this;
+    return new Promise(function(resolve, reject) {
+      self.method(params, function(error, data) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+  };
+
+}
+
+if (true) { // generators
+
+  function* generator1() {
+    //console.log(0);
+
+    yield 1;
+    yield 2;
+    yield 3;
+    // return 4; // optional, in case we don't want an mepty loop at the end
+  }
+
+  let iterator = generator1();
+  let current;
+
+  do {
+    current = iterator.next();
+    console.log(current.value, current.done);
+  } while (!current.done);
+
+  // generators can be passed values:
+  function* generator2() {
+    let a = yield;
+
+    return 2 * a;
+  }
+
+  iterator = generator2();
+
+  iterator.next();
+  console.log(iterator.next(2));
+
 }
