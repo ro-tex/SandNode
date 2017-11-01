@@ -19,6 +19,7 @@
 	},
 	"homepage": "https://github.com/ro-tex/SandNode#readme",
 	"dependencies": {
+		"benchmark": "^2.1.4",
 		"body-parser": "^1.18.1",
 		"express": "^4.15.4",
 		"lodash": "^4.17.4",
