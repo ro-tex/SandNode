@@ -1,7 +1,8 @@
-class Sand {
+'use strict';
 
+class Sand {
   static hello() {
-    return "Hello World!";
+    return 'Hello World!';
   }
 
   static sand() {
