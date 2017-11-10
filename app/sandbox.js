@@ -337,3 +337,22 @@ if (true) { // generators
   console.log(iterator.next(2));
 
 }
+
+/**
+ * Returns a deep copy (by value) of the object guiven as argunent.
+ *
+ * @see https://stackoverflow.com/a/5344074/363293
+ */
+function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+/**
+ * Returns true when the two obejcts are identical.
+ * Note: field order matters, unfortunately.
+ *
+ * @see https://stackoverflow.com/a/1144249/363293
+ */
+function compare(obj1, obj2) {
+  return JSON.stringify(obj1) === JSON.stringify(obj2);
+}
