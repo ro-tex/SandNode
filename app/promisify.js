@@ -1,30 +1,18 @@
-// Promisifies a normal, callback-based function
-function promisify(func) {
+/**
+ * Turns a callback-based function into a Promise-based function.
+ *
+ * Object methods are a bit more complicated to transform, so in order to keep
+ * this function simple, we need to pass the object as second parameter.
+ *
+ * @param [Function] func The function we want to promisify.
+ * @param [Object] self The object this function belongs to. Optional.
+ */
+function promisify(func, self = func) {
   return function() {
-    return new Promise((resolve, reject) => {
-      // eslint-disable-next-line prefer-rest-params
-      func(...arguments, function(err, data) {
-        if (err) {
-          reject(err.message);
-        }
-        resolve(data);
-      });
-    });
-  };
-}
-
-// Promisifies a method that belongs to an object. The returned function can be called on its own.
-function promisifyMethod(func, self) {
-  return function() {
-    // let self = arguments[0]; // eslint-disable-line prefer-rest-params
-    // let args = [...arguments].slice(1); // eslint-disable-line prefer-rest-params
     return new Promise((resolve, reject) => {
       // eslint-disable-next-line prefer-rest-params
       func.call(self, ...arguments, function(err, data) {
-        if (err) {
-          reject(err.message);
-        }
-        resolve(data);
+        err ? reject(err.message) : resolve(data);
       });
     });
   };
@@ -32,7 +20,6 @@ function promisifyMethod(func, self) {
 
 module.exports = {
   promisify,
-  promisifyMethod,
 };
 
 
