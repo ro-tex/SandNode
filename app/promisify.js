@@ -24,7 +24,7 @@ module.exports = {
 
 
 /* Wrapping a promise return into a callback library and returning a promise again. */
-if (false) {
+if (!module.parent) {
   // The original func that returns a promise:
   function fooOld() {
     return barPromise()
