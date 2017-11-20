@@ -14,6 +14,7 @@ There are several ways to handle exporting in Node.js:
 
  Links:
   - https://stackoverflow.com/questions/16383795/difference-between-module-exports-and-exports-in-the-commonjs-module-system
+  - https://nodejs.org/docs/latest/api/modules.html#modules_module_exports
 
 */
 
