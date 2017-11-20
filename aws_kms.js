@@ -1,3 +1,5 @@
+'use strict';
+
 // This uses our credentials from ~/.aws/credentials:
 const AWS = require('aws-sdk');
 const KMS_CLIENT = new AWS.KMS({

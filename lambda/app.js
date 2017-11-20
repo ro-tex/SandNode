@@ -1,3 +1,5 @@
+'use strict';
+
 const app = require('express')();
 
 // https://www.youtube.com/watch?v=c4rvh_Iq6LE

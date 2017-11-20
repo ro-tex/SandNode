@@ -1,7 +1,6 @@
 'use strict';
 
 class CustomError extends Error {
-
   constructor(msg, causedBy) {
     super(msg);
     this.__causedBy = causedBy;

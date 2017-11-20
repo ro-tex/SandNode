@@ -1,3 +1,5 @@
+'use strict';
+
 /**
 This module will export some simple functions.
 

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Turns a callback-based function into a Promise-based function.
  *

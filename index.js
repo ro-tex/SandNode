@@ -1,1 +1,3 @@
-require('./app/app')
+'use strict';
+
+require('./app/app');

@@ -1,3 +1,5 @@
+'use strict';
+
 const app = require('express')();
 const bodyParser = require('body-parser');
 
@@ -6,10 +8,7 @@ const User = require('./user');
 // app.use(bodyParser.urlencoded());
 
 app.post('/login', bodyParser.urlencoded(), function(req, res) {
-
-  // console.log(Object.keys(req));
-
-console.log('>>>>>>>', req.body);
+  console.log('>>>>>>>', req.body);
 
   if (!req.body.username || !req.body.password) {
     res.status(400).send('Username and password are required.');
@@ -37,6 +36,7 @@ app.post('/user', function(req, res) {
   }
 
   let u = new User(req.body.username, req.body.password);
+  console.log(`Created a new user: ${u}`);
   res.status(200).send('New user created!');
 });
 

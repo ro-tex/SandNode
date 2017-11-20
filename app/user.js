@@ -1,14 +1,14 @@
+'use strict';
+
 class User {
-
   constructor(username, password) {
-
     if (!User.users) {
       // in place of data store:
       User.users = {
         test: {
           username: 'test',
-          password: 'test123'
-        }
+          password: 'test123',
+        },
       };
     }
 

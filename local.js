@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const debug = require('debug');
 const app = express();
@@ -13,13 +15,13 @@ const app = express();
 */
 
 app.get('/', (req, res) => {
-    debugger;
-    res.send({
-        status: 'hello world!'
-    });
-    debug('info')('request served! (info)');
+  debugger;
+  res.send({
+    status: 'hello world!',
+  });
+  debug('info')('request served! (info)');
 });
 
 app.listen(3000, () => {
-    console.log('Server started.');
+  console.log('Server started.');
 });

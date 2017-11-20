@@ -1,3 +1,5 @@
+'use strict';
+
 const Sand = require('../app/sand');
 const chai = require('chai');
 const expect = chai.expect;
@@ -9,7 +11,6 @@ chai.use(chaiAsPromised);
 // NOTE https://www.sitepoint.com/promises-in-javascript-unit-tests-the-definitive-guide/
 
 describe('Sand', () => {
-
   /* SETUP STARTS */
 
   let result;
@@ -64,5 +65,4 @@ describe('Sand', () => {
   });
 
   it('a pending test (no callback)');
-
 });
