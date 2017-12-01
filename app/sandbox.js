@@ -338,6 +338,8 @@ if (true) { // generators
 /**
  * Returns a deep copy (by value) of the object guiven as argunent.
  *
+ * DOES NOT WORK WITH DEEP OBJECTS!
+ *
  * @see https://stackoverflow.com/a/5344074/363293
  */
 function clone(obj) {
@@ -348,8 +350,14 @@ function clone(obj) {
  * Returns true when the two obejcts are identical.
  * Note: field order matters, unfortunately.
  *
+ * DOES NOT WORK WITH DEEP OBJECTS!
+ *
  * @see https://stackoverflow.com/a/1144249/363293
  */
 function compare(obj1, obj2) {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
+}
+
+function isIterable(obj) {
+  return !!obj && typeof obj[Symbol.iterator] === 'function';
 }
