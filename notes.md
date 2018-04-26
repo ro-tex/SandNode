@@ -14,7 +14,10 @@ Coding style: <https://docs.npmjs.com/misc/coding-style>
 
 Install `production` only: npm install --only=production
 
+### Publish to NPM with Babel
+
+link: https://booker.codes/how-to-build-and-publish-es6-npm-modules-today-with-babel/
+
 ## AWS Lambda and Node.js
 
 The Lambda function exits only after the Node.js event loop is empty (the Node.js event loop is not the same as the event that was passed as a parameter).
-
