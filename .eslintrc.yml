@@ -1,6 +1,6 @@
 extends: google
-env:
-  es6: 1
+parserOptions:
+  ecmaVersion: 8
 rules:
   require-jsdoc: 0
   valid-jsdoc: 0
