@@ -40,8 +40,12 @@ class Sand {
 
   static sand() {
     return new Promise((resolve, reject) => {
-      for (let i = 0; i < 1e9; ++i) {}
-      resolve(5);
+      let res;
+      // Simulate doing work
+      for (let i = 0; i < 5 * 1e9; ++i) {
+        res = i;
+      }
+      resolve(res);
     });
   }
 }
