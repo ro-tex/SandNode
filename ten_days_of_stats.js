@@ -46,3 +46,9 @@ function quartiles(arr) {
     quart4: med3.upper,
   };
 }
+
+function stdDeviation(arr) {
+  let mean = arr.reduce((n, sum) => n + sum, 0) / arr.length;
+  let variance = arr.map((n) => (n - mean) ** 2).reduce((n, sum) => n + sum, 0) / arr.length;
+  return Math.sqrt(variance);
+}
