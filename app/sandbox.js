@@ -361,3 +361,11 @@ function compare(obj1, obj2) {
 function isIterable(obj) {
   return !!obj && typeof obj[Symbol.iterator] === 'function';
 }
+
+function foo() {
+  console.log(arguments[0]);
+}
+foo.call({bar: 'baz'}, ...[1, 2, 3]); // call takes indivdual parameters
+foo.apply({bar: 'bzz'}, [1, 2, 3]);   // apply takes the params as an array
+
+// https://stackoverflow.com/questions/34361379/arrow-function-vs-function-declaration-expressions-are-they-equivalent-exch
