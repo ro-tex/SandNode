@@ -369,3 +369,20 @@ foo.call({bar: 'baz'}, ...[1, 2, 3]); // call takes indivdual parameters
 foo.apply({bar: 'bzz'}, [1, 2, 3]);   // apply takes the params as an array
 
 // https://stackoverflow.com/questions/34361379/arrow-function-vs-function-declaration-expressions-are-they-equivalent-exch
+
+// generators
+function* gen() {
+  let n = 0;
+  while (true) {
+    yield n++;
+  }
+}
+for (let i of gen()) {
+  console.log(i);
+}
+
+// destructuring
+let {a, c: b} = {a: 1, c: 2};
+let [c, d] = [1, 2];
+({c, d} = {c: 3, d: 4}); // parentheses are needed, otherwise JS thinks the first part is a block
+console.log(a, b, c, d);
