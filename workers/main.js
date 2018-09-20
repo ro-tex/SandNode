@@ -1,3 +1,5 @@
+// NOTE: This code requires Node v10.5+
+
 const {
   Worker,
   isMainThread,
@@ -17,12 +19,14 @@ if (isMainThread) {
   const threads = [];
   const workloads = [];
 
+  // console.time('threads');
   // initialise the thread pool:
   for (let i = 0; i < 3; i++) {
     threads[i] = new Worker(__filename, {
       workerData: i,
     });
   }
+  // console.timeEnd('threads');
 
   // send workloads:
   for (let i = 0; i < 9; i++) {
@@ -32,7 +36,7 @@ if (isMainThread) {
       wrkr.on('message', resolve);
       wrkr.on('error', reject);
       wrkr.on('exit', (code) => {
-        console.log(`"Exit" event received from worker. Code: ${code}`);
+        // console.log(`"Exit" event received from worker. Code: ${code}`);
         code === 0 ? resolve(code) : reject(code);
       });
     });
@@ -50,11 +54,7 @@ if (isMainThread) {
       console.log(results);
     })
     .then(() => {
-      // work();
-      // work();
-      // work();
       for (let i = 0; i < threads.length; i++) {
-        console.log('will shut worker down');
         threads[i].terminate(terminationCallback);
       }
     });
