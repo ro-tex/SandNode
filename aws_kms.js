@@ -14,11 +14,11 @@ const KMS_CLIENT = new AWS.KMS({
 //     return secretKey;
 //   });
 
-const KMS_KEY_ID = 'arn:aws:kms:eu-west-1:601343171996:key/5ff8bd01-5aeb-4050-a819-977218a66db9';
+const KMS_KEY_ID = 'arn:aws:kms:eu-west-1:412604355545:key/d575ee3c-48c0-4c9c-bb9b-7838242a52c8';
 
 let params = {
   KeyId: KMS_KEY_ID,
-  Plaintext: new Buffer('87K0rPycpFjHBKQk1YrmeBTmDmpJvADF2aK9mym7'),
+  Plaintext: new Buffer('payload'),
 };
 KMS_CLIENT.encrypt(params, function(err, data) {
   if (err) console.log(err, err.stack); // an error occurred

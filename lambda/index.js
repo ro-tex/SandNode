@@ -97,7 +97,7 @@ let customContext = {
   getRemainingTimeInMillis: () => awslambda.getRemainingTime(),
   invokeid: 'e6e5e21f-c4a6-11e7-8235-353499f63471',
   awsRequestId: 'e6e5e21f-c4a6-11e7-8235-353499f63471',
-  invokedFunctionArn: 'arn:aws:lambda:eu-west-1:601343171996:function:CommentService',
+  invokedFunctionArn: 'arn:aws:lambda:eu-west-1:601343171996:function:LoadTest',
 };
 
 exports.handler(customEvent, customContext);
