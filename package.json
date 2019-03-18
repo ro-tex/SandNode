@@ -23,7 +23,7 @@
 		"body-parser": "^1.18.1",
 		"express": "^4.15.4",
 		"lodash": "^4.17.4",
-		"protobufjs": "~6.8.6",
+		"protobufjs": "^6.8.8",
 		"redis": "^2.8.0",
 		"superagent": "^3.8.3",
 		"xxhash": "^0.2.4"
