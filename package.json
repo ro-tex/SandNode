@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "node index.js",
 		"test": "mocha test",
-		"custom": "a custom command that you can invoke with `npm run custom`"
+		"custom": "a custom command that you can invoke with `npm run custom`",
+		"name": "echo $npm_package_name: $npm_package_description"
 	},
 	"repository": {
 		"type": "git",
