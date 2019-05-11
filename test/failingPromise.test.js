@@ -1,18 +1,29 @@
 const {describe, it} = require('mocha');
-const chai = require('chai');
-const expect = chai.expect;
-const chaiAsPromised = require('chai-as-promised');
-chai.use(chaiAsPromised);
+const {expect} = require('chai');
 
-function add(a, b) {
-  return Promise.reject('boom');
-  // return Promise.resolve(a + b);
+async function add(a, b) {
+  if (a + b === 0) {
+    throw new Error('boom');
+  }
+  // return Promise.reject('boom'); // doesn't work
+  return Promise.resolve(a + b);
 }
 
 describe('add', () => {
-  it('a+b', async () => {
-    const result = add(2, 3);
-    // expect(result).eql(5, '5?'); // works
-    expect(result).to.eventually.be.rejectedWith('boom');
+  it('success', async () => {
+    try {
+      const result = await add(2, 3);
+      expect(result).eql(5, '5?'); // hit this
+    } catch (e) {
+      expect(e.message).eql('boom');
+    }
+  });
+  it('failure', async () => {
+    try {
+      const result = await add(0, 0);
+      expect(result).eql(5, '5?');
+    } catch (e) {
+      expect(e.message).eql('boom'); // hit this
+    }
   });
 });
