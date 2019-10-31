@@ -20,7 +20,7 @@
 	},
 	"homepage": "https://github.com/ro-tex/SandNode#readme",
 	"dependencies": {
-		"axios": "^0.18.0",
+		"axios": "^0.18.1",
 		"benchmark": "^2.1.4",
 		"body-parser": "^1.18.1",
 		"express": "^4.15.4",
